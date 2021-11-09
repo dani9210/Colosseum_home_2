@@ -2,6 +2,7 @@ package com.example.colosseum_home.utils
 
 import android.util.Log
 import okhttp3.*
+import org.json.JSONObject
 import java.io.IOException
 
 class ServerUtil {
@@ -66,7 +67,12 @@ class ServerUtil {
 
                     val bodyString = response.body!!.string()
 
-                    Log.d("서버응답본문",bodyString)
+//                    본문을 그냥 받은 String 그대로 찍으면 -> 한글이 깨져서보임
+//                    해결책 : String -> JSONObject로 변환 -> string으로 재변환해보면, 한글이 제대로 보임.
+
+                    val jsonObj = JSONObject(bodyString)
+
+                    Log.d("서버응답본문",jsonObj.toString())
 
                 }
 
