@@ -1,6 +1,8 @@
 package com.example.colosseum_home.utils
 
 import android.util.Log
+import android.widget.Toast
+import com.example.colosseum_home.R
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -9,7 +11,7 @@ class ServerUtil {
 
 //    static 에 대응되는 기능 활용
 
-    companion object{
+    companion object {
 
 
 //        어느 서버로 가는가?  BASE_URL을 미리 변수에 담아두자
@@ -20,7 +22,7 @@ class ServerUtil {
 //           이 { } 안에 적는 코드들은 다른 클래스에서  ServerUtil . 변수/기능 활용 가능.
 
 
-        fun postRequestLogin( email : String,pw:String ) {
+        fun postRequestLogin(email: String, pw: String) {
 
 //            1.어디로 요청하러 (인터넷주소 연결 - URL) 갈것인가?
 
@@ -32,8 +34,8 @@ class ServerUtil {
 
 
             val formData = FormBody.Builder()
-                .add("email",email)
-                .add("password",pw)
+                .add("email", email)
+                .add("password", pw)
                 .build()
 
 //            3. 최종 Request 정보완성 -> 어떤 방식으로 갈지도 같이 명시.  어디로-> 어떻게
@@ -52,7 +54,7 @@ class ServerUtil {
 //            okhttpClient를 이용 -> 서버에 로그인 기능 호출
 //            호출을 했으면 -> 서버가 알려준 결과를 받아서 처리.(response 처리)
 
-            client.newCall(request).enqueue(object : Callback{
+            client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
 //                    실패 : 서버 연결자체를 실패, 아무 응답도 없을때.
 //                    ex. 인터넷 끊김, 서버 접속 불가 등등 물리적 연결 실패
@@ -72,26 +74,42 @@ class ServerUtil {
 
                     val jsonObj = JSONObject(bodyString)
 
-                    Log.d("서버응답본문",jsonObj.toString())
+                    Log.d("서버응답본문", jsonObj.toString())
+
+
+//                    연습  . code숫자추출, 로그인성공여부판단 ->  로그로출력
+//                    "code" 숫자 ->  제일큰 중괄호 (jsonObj)에 바로 달려있음 ->  jsonObj에게 찾아달라고하자
+
+                    val codeNum = jsonObj.getInt("code")
+
+                    Log.d("로그인코드값", codeNum.toString())
+
+
+//                    연습.  로그인에 성공했들때만, 성공한사람의 닉네임을 로그로 출력.
+
+
+                    if (codeNum == 200) {
+
+                        val dataObj = jsonObj.getJSONObject("data")
+                        val userObj = dataObj.getJSONObject("user")
+                        val nickname = userObj.getString("nick_name")
+
+
+//                        data 이름표가 붙은 { }를 추출하자
+
+                        Log.d("로그인한사람", nickname)
+
+
+                    }
+
 
                 }
 
 
-            } )
-
-
-
+            })
 
 
         }
-
-
-
-
-
-
-
-
 
 
     }
