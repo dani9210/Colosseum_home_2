@@ -9,6 +9,15 @@ import java.io.IOException
 
 class ServerUtil {
 
+//    돌아온 응답을 화면에 전달한 : 나(ServerUtil)에게 발생한 일을 => 화며단에서 대신 처리해달라고 하자.(interface 활용)
+
+    interface JsonResponseHandler{
+
+        fun onResponse(jsonObj: JSONObject)
+
+
+    }
+
 //    static 에 대응되는 기능 활용
 
     companion object {
@@ -20,9 +29,10 @@ class ServerUtil {
 
 
 //           이 { } 안에 적는 코드들은 다른 클래스에서  ServerUtil . 변수/기능 활용 가능.
+//        handler : 화면단에서 적어주는, 응답을 어떻게 처리할지 대처 방안이 담긴 인터페이스 변수.
 
 
-        fun postRequestLogin(email: String, pw: String) {
+        fun postRequestLogin(email: String, pw: String, handler : JsonResponseHandler? ) {
 
 //            1.어디로 요청하러 (인터넷주소 연결 - URL) 갈것인가?
 
@@ -75,6 +85,12 @@ class ServerUtil {
                     val jsonObj = JSONObject(bodyString)
 
                     Log.d("서버응답본문", jsonObj.toString())
+
+//                    화면단에서, 응답에 대한 처리방안을 제시했다면 (handler가 null 아니라면 - 실체가있다면)
+//                    처리방법대로 하도록 명령
+
+
+                    handler?.onResponse(jsonObj)
 
 
 
