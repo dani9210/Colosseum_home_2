@@ -49,6 +49,9 @@ class MainActivity : BaseActivity() {
 
                         runOnUiThread {
 
+//                            안드로이드는 UI 전담 쓰레드 외의 다른 쓰레드가 UI를 조작하면, 위험요소로 간주하고 앱을 죽임.
+//                            그래서 꼭  runOnUiThread 안에 작업해주어야함
+
 
                             if (code == 200) {
 
