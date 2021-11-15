@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivitySignUpBinding
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity :BaseActivity() {
 
 
     lateinit var binding : ActivitySignUpBinding
@@ -14,8 +14,21 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_up)
 
+        setupEvents()
+        setValues()
+
 
     }
+
+
+    override fun setupEvents() {
+
+    }
+
+    override fun setValues() {
+           }
+
+
 
 
 }
