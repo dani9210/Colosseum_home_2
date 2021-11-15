@@ -1,5 +1,6 @@
 package com.example.colosseum_home
 
+import android.content.Intent
 import android.media.audiofx.BassBoost
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,6 +25,17 @@ class MainActivity : BaseActivity() {
 
 
     override fun setupEvents() {
+
+
+        binding.singUpBtn.setOnClickListener {
+
+            val myIntent = Intent(mContext,SignUpActivity::class.java)
+
+            startActivity(myIntent)
+
+
+
+        }
 
         binding.loginBtn.setOnClickListener {
 
