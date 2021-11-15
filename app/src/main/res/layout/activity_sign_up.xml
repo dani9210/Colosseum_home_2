@@ -60,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="8글 자이상 입력"
+            android:textColor="@color/garypink"
             android:textColorHint="@color/pink"
             android:inputType="textPassword"/>
 
@@ -74,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="한글도 가능"
+            android:textColor="@color/garypink"
             android:textColorHint="@color/pink"
             android:singleLine="true"/>
 
