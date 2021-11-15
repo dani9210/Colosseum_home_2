@@ -56,14 +56,14 @@ class MainActivity : BaseActivity() {
                             if (code == 200) {
 
 
-                                Toast.makeText(this@MainActivity, "로그인 성공", Toast.LENGTH_SHORT)
+                                Toast.makeText(mContext, "로그인 성공", Toast.LENGTH_SHORT)
                                     .show()
 
                             } else {
 
                                 val message = jsonObj.getString("message")
 
-                                Toast.makeText(this@MainActivity, message, Toast.LENGTH_SHORT)
+                                Toast.makeText(mContext, message, Toast.LENGTH_SHORT)
                                     .show()
 
 
