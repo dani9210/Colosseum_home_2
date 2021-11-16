@@ -12,7 +12,7 @@ class ServerUtil {
 
 //    돌아온 응답을 화면에 전달한 : 나(ServerUtil)에게 발생한 일을 => 화며단에서 대신 처리해달라고 하자.(interface 활용)
 
-    interface JsonResponseHandler{
+    interface JsonResponseHandler {
 
         fun onResponse(jsonObj: JSONObject)
 
@@ -33,7 +33,7 @@ class ServerUtil {
 //        handler : 화면단에서 적어주는, 응답을 어떻게 처리할지 대처 방안이 담긴 인터페이스 변수.
 
 
-        fun postRequestLogin(email: String, pw: String, handler: JsonResponseHandler? ) {
+        fun postRequestLogin(email: String, pw: String, handler: JsonResponseHandler?) {
 
 //            1.어디로 요청하러 (인터넷주소 연결 - URL) 갈것인가?
 
@@ -94,11 +94,6 @@ class ServerUtil {
                     handler?.onResponse(jsonObj)
 
 
-
-
-
-
-
                 }
 
 
@@ -110,15 +105,15 @@ class ServerUtil {
 //        회원가입 기능
 
 
-        fun putRequestSignUp(email: String,pw: String,nickname: String, handler: JsonResponseHandler?){
+        fun putRequestSignUp(email: String, pw: String, nickname: String, handler: JsonResponseHandler?) {
 
-              val urlString = "${BASE_URL}/user"
+            val urlString = "${BASE_URL}/user"
 
 
             val formData = FormBody.Builder()
-                .add("email",email)
-                .add("password",pw)
-                .add("nick_name",nickname)
+                .add("email", email)
+                .add("password", pw)
+                .add("nick_name", nickname)
                 .build()
 
 
@@ -141,7 +136,7 @@ class ServerUtil {
                     val bodyString = response.body!!.string()
                     val jsonObj = JSONObject(bodyString)
 
-                    Log.d("서버응답본문",jsonObj.toString())
+                    Log.d("서버응답본문", jsonObj.toString())
                     handler?.onResponse(jsonObj)
 
 
@@ -151,31 +146,57 @@ class ServerUtil {
             })
 
 
-
         }
 
 
 //        중복확인기능
 
-        fun getRequestDuplCheck(type : String, value : String,  handler: JsonResponseHandler?){
+        fun getRequestDuplCheck(type: String, value: String, handler: JsonResponseHandler?) {
 
 //            어디로 가야하는가?  GET-query 파라미터 => 어디로?  +어떤데이터?  한번에 조합된형태.
 //            => a만들떄도 같이 만들어야함
 //            => 어디로가는가? 본체 =>  파라미터 첨부까지. =>  url을 만들고 가공(build)
 //            뼈대를 만들고     urlBuilder에다가 기능을 써먹는다.
 
-            val urlBuilder= "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+            val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
 
 //              addEncodedQueryParameter() < 한글처리가잘되어서 요고로쓴다
 
-            urlBuilder.addEncodedQueryParameter("type",type)
-            urlBuilder.addEncodedQueryParameter("value",value)
+            urlBuilder.addEncodedQueryParameter("type", type)
+            urlBuilder.addEncodedQueryParameter("value", value)
 
             val urlString = urlBuilder.toString()
 
-            Log.d("최종주소",urlString)
+            Log.d("최종주소", urlString)
+
+//            2. 어디로 + 어떤데이터?  완료된상태 =>  Request 정보를 만들자
+
+            val request = Request.Builder()
+                .url(urlString)  // 어디로 넣으면 ->  파라미터도 같이 들어감.
+                .get()   // get방식은 파라미터를 받지 않는다.  url에 다 있으니까.
+                .build()
+
+//            3. Request 완성 => 서버에 호출 하면된다. Client 로 출력
 
 
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+
+                    val bodyString = response.body!!.string()
+                    val jsonObj = JSONObject(bodyString)
+                    Log.d("서버응답본문", jsonObj.toString())
+                    handler?.onResponse(jsonObj)
+
+                }
+
+
+            })
 
 
         }
