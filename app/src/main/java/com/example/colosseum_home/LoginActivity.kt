@@ -46,10 +46,7 @@ class LoginActivity : BaseActivity() {
 
 //            서버의 로그인 기능에 전달.
 
-            ServerUtil.postRequestLogin(
-                inputEmail,
-                inputPw,
-                object : ServerUtil.JsonResponseHandler {
+            ServerUtil.postRequestLogin(inputEmail, inputPw, object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObj: JSONObject) {
 
 //                    화면단에서 jsonObj 분석- > 상황에맞는 UI 처리
@@ -70,21 +67,20 @@ class LoginActivity : BaseActivity() {
 
 
 //                                내 정보를 인증하는 데이터 :  토큰 추출
+
                                 val token = dataObj.getString("token")
 
 //                                SharedPreferences 활용하여 저장해두자 . => 필요할떄 꺼내쓰도록.
 
 
                                 runOnUiThread {
-                                    Toast.makeText(
-                                        mContext,
-                                        "${nickname}님 환영합니다!",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+
+                                    Toast.makeText(mContext, "${nickname}님 환영합니다!",Toast.LENGTH_SHORT).show()
 
                                     val myIntent = Intent(mContext, MainActivity::class.java)
                                     startActivity(myIntent)
                                     finish()
+
                                 }
 
 
@@ -93,8 +89,8 @@ class LoginActivity : BaseActivity() {
                                     val message = jsonObj.getString("message")
 
                                 runOnUiThread {
-                                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT)
-                                        .show()
+
+                                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
 
 
                                 }
@@ -102,10 +98,6 @@ class LoginActivity : BaseActivity() {
 
 
                         }
-
-
-
-
 
                 })
 
