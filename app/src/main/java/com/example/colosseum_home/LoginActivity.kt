@@ -52,18 +52,16 @@ class LoginActivity : BaseActivity() {
                 object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObj: JSONObject) {
 
-//                    화면단에서 jsonObj 분석- > 상황에맞는 UI처리
+//                    화면단에서 jsonObj 분석- > 상황에맞는 UI 처리
 
                         val code = jsonObj.getInt("code")
 //                    로그인 성공시 - > 성공
 //                   실패시 -> 왜 실패했는지 서버가 알려주는대로 토스트
 
-                        runOnUiThread {
 
-//                            안드로이드는 UI 전담 쓰레드 외의 다른 쓰레드가 UI를 조작하면, 위험요소로 간주하고 앱을 죽임.
+
+//                          안드로이드는 UI 전담 쓰레드 외의 다른 쓰레드가 UI를 조작하면, 위험요소로 간주하고 앱을 죽임.
 //                            그래서 꼭  runOnUiThread 안에 작업해주어야함
-
-
                             if (code == 200) {
 
                                 val dataObj = jsonObj.getJSONObject("data")
@@ -71,24 +69,42 @@ class LoginActivity : BaseActivity() {
                                 val nickname = userObj.getString("nick_name")
 
 
-                                Toast.makeText(mContext, "${nickname}님 환영합니다!", Toast.LENGTH_SHORT)
-                                    .show()
+//                                내 정보를 인증하는 데이터 :  토큰 추출
+                                val token = dataObj.getString("token")
 
-                            } else {
-
-                                val message = jsonObj.getString("message")
-
-                                Toast.makeText(mContext, message, Toast.LENGTH_SHORT)
-                                    .show()
+//                                SharedPreferences 활용하여 저장해두자 . => 필요할떄 꺼내쓰도록.
 
 
-                            }
+                                runOnUiThread {
+                                    Toast.makeText(
+                                        mContext,
+                                        "${nickname}님 환영합니다!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                    val myIntent = Intent(mContext, MainActivity::class.java)
+                                    startActivity(myIntent)
+                                    finish()
+                                }
+
+
+                                } else {
+
+                                    val message = jsonObj.getString("message")
+
+                                runOnUiThread {
+                                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT)
+                                        .show()
+
+
+                                }
+                                }
 
 
                         }
 
 
-                    }
+
 
 
                 })

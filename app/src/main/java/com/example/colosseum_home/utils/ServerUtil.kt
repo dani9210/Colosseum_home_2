@@ -1,8 +1,7 @@
 package com.example.colosseum_home.utils
 
 import android.util.Log
-import android.widget.Toast
-import com.example.colosseum_home.R
+
 import okhttp3.*
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
@@ -24,7 +23,7 @@ class ServerUtil {
     companion object {
 
 
-//        어느 서버로 가는가?  BASE_URL을 미리 변수에 담아두자
+//        어느 서버로 가는가?  BASE_URL 을 미리 변수에 담아두자
 
         val BASE_URL = "http://54.180.52.26"
 
@@ -56,13 +55,13 @@ class ServerUtil {
                 .post(formData)
                 .build()
 
-//            만들어진 request를 실제를 호출 해야함.
+//            만들어진 request 를 실제를 호출 해야함.
 //            서버에 요청을 실제로 하자.  ->  클라이언트의 역할-> 앱이 클라이언트로써 동작하게 하자.
 
             val client = OkHttpClient()
 
 
-//            okhttpClient를 이용 -> 서버에 로그인 기능 호출
+//            okhttpClient 를 이용 -> 서버에 로그인 기능 호출
 //            호출을 했으면 -> 서버가 알려준 결과를 받아서 처리.(response 처리)
 
             client.newCall(request).enqueue(object : Callback {
@@ -76,18 +75,18 @@ class ServerUtil {
                 override fun onResponse(call: Call, response: Response) {
 
 //                    어떤 내용이든 , 응답자체가 잘 들어온 경우. (로그인 성공, 실패 모두 응답O)
-//                    응답에 포함된 데이터들중 => 본문 (body)를 보자.  (편지내용을보자 봉투가X)
+//                    응답에 포함된 데이터들중 => 본문 (body)를 보자.  (편지내용을보자 봉투가 X)
 
                     val bodyString = response.body!!.string()
 
 //                    본문을 그냥 받은 String 그대로 찍으면 -> 한글이 깨져서보임
-//                    해결책 : String -> JSONObject로 변환 -> string으로 재변환해보면, 한글이 제대로 보임.
+//                    해결책 : String -> JSONObject 로 변환 -> string 으로 재변환해보면, 한글이 제대로 보임.
 
                     val jsonObj = JSONObject(bodyString)
 
                     Log.d("서버응답본문", jsonObj.toString())
 
-//                    화면단에서, 응답에 대한 처리방안을 제시했다면 (handler가 null 아니라면 - 실체가있다면)
+//                    화면단에서, 응답에 대한 처리방안을 제시했다면 (handler 가 null 아니라면 - 실체가있다면)
 //                    처리방법대로 하도록 명령
 
 
@@ -154,9 +153,9 @@ class ServerUtil {
         fun getRequestDuplCheck(type: String, value: String, handler: JsonResponseHandler?) {
 
 //            어디로 가야하는가?  GET-query 파라미터 => 어디로?  +어떤데이터?  한번에 조합된형태.
-//            => a만들떄도 같이 만들어야함
-//            => 어디로가는가? 본체 =>  파라미터 첨부까지. =>  url을 만들고 가공(build)
-//            뼈대를 만들고     urlBuilder에다가 기능을 써먹는다.
+//            => 만들떄도 같이 만들어야함
+//            => 어디로가는가? 본체 =>  파라미터 첨부까지. =>  url 을 만들고 가공(build)
+//            뼈대를 만들고     urlBuilder 에다가 기능을 써먹는다.
 
             val urlBuilder = "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
 
@@ -173,7 +172,7 @@ class ServerUtil {
 
             val request = Request.Builder()
                 .url(urlString)  // 어디로 넣으면 ->  파라미터도 같이 들어감.
-                .get()   // get방식은 파라미터를 받지 않는다.  url에 다 있으니까.
+                .get()   // get 방식은 파라미터를 받지 않는다.  url 에 다 있으니까.
                 .build()
 
 //            3. Request 완성 => 서버에 호출 하면된다. Client 로 출력

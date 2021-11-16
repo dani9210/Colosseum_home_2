@@ -142,7 +142,7 @@ class SignUpActivity : BaseActivity() {
             ServerUtil.putRequestSignUp(inputEmail, inputPw, inputNickname, object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObj: JSONObject) {
 
-//                     jsonObj 분석 -> UI반영 코드만 작성.
+//                     jsonObj 분석 -> UI 반영 코드만 작성.
 
                         val code = jsonObj.getInt("code")
                         if (code == 200) {

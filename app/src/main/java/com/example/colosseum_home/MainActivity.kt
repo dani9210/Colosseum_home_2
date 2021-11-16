@@ -1,6 +1,6 @@
 package com.example.colosseum_home
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivityMainBinding
@@ -24,7 +24,8 @@ class MainActivity : BaseActivity(){
 
     override fun setValues() {
 
-    }
+//        연습 - 내 정보를 받아오기 호출 =>  닉네임 파싱, 텍스트뷰에 반영영
 
+    }
 
 }
