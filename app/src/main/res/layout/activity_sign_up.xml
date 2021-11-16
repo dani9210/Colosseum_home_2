@@ -79,6 +79,18 @@
             android:textColorHint="@color/pink"
             android:singleLine="true"/>
 
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:src="@drawable/pinkpink"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="50dp"/>
+
+
+
+
+
         <Button
             android:id="@+id/okBtn"
             android:layout_width="match_parent"
