@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivitySignUpBinding
 import com.example.colosseum_home.utils.ServerUtil
 import org.json.JSONObject
+import java.util.*
 
 class SignUpActivity : BaseActivity() {
 
@@ -30,7 +31,32 @@ class SignUpActivity : BaseActivity() {
 
             val inputEmail = binding.emailEdt.text.toString()
 
-            ServerUtil.getRequestDuplCheck("EMAIL",inputEmail,null)
+            ServerUtil.getRequestDuplCheck("EMAIL",inputEmail, object : ServerUtil.JsonResponseHandler {
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    val code = jsonObj.getInt("code")
+
+                    runOnUiThread {
+
+                        if (code == 200) {
+
+                            binding.emailCheckResultTxt.text = "사용해도 좋습니다"
+
+                        } else {
+
+                            binding.emailCheckResultTxt.text = "다른 이메일을 입력하고,검사해주세요"
+
+
+                        }
+                    }
+
+
+
+
+
+                }
+
+            })
 
         }
 
@@ -43,11 +69,7 @@ class SignUpActivity : BaseActivity() {
 
 //            입력한 데이터를 => 서버의 회원가입 기능에 요청  => ServerUtil 함수 활용. => 함수가 아직없으니 추가로 만들자
 
-            ServerUtil.putRequestSignUp(
-                inputEmail,
-                inputPw,
-                inputNickname,
-                object : ServerUtil.JsonResponseHandler {
+            ServerUtil.putRequestSignUp(inputEmail, inputPw, inputNickname, object : ServerUtil.JsonResponseHandler {
                     override fun onResponse(jsonObj: JSONObject) {
 
 //                     jsonObj 분석 -> UI반영 코드만 작성.
