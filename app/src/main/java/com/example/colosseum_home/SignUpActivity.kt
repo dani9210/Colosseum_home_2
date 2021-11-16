@@ -2,7 +2,9 @@ package com.example.colosseum_home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivitySignUpBinding
 import com.example.colosseum_home.utils.ServerUtil
@@ -14,7 +16,11 @@ class SignUpActivity : BaseActivity() {
 
     lateinit var binding: ActivitySignUpBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+//    이메일 중복검사 통과 여부 저장 변수.
+
+    var isEmilOk = false  // 기본값 :  통과 X , 그래서 false. => 자료형 자동으로 Boolean 설정정
+
+    override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
@@ -26,6 +32,18 @@ class SignUpActivity : BaseActivity() {
 
 
     override fun setupEvents() {
+
+        binding.emailEdt.addTextChangedListener {
+
+//            val inputContent = it.toString()
+//            Log.d("변경된내용",inputContent)
+
+//            이메일이 한글자라도 바뀌면 -> 검사를 다시 요구.
+
+            binding.emailCheckResultTxt.text = "이메일 중복검사를 해주세요"
+            isEmilOk = false
+
+        }
 
         binding.checkEmailBtn.setOnClickListener {
 
@@ -41,10 +59,12 @@ class SignUpActivity : BaseActivity() {
                         if (code == 200) {
 
                             binding.emailCheckResultTxt.text = "사용해도 좋습니다"
+                            isEmilOk = true
 
                         } else {
 
                             binding.emailCheckResultTxt.text = "사용중인 이메일 입니다"
+                            isEmilOk = false
 
 
                         }
