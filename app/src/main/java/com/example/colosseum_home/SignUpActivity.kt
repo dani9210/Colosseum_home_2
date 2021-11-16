@@ -2,6 +2,7 @@ package com.example.colosseum_home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivitySignUpBinding
 import com.example.colosseum_home.utils.ServerUtil
@@ -36,6 +37,29 @@ class SignUpActivity :BaseActivity() {
                 override fun onResponse(jsonObj: JSONObject) {
 
 //                     jsonObj 분석 -> UI반영 코드만 작성.
+
+                    val code = jsonObj.getInt("code")
+                    if (code==200) {
+
+
+
+                    }
+
+                    else{
+
+                        val message = jsonObj.getString("message")
+
+                        runOnUiThread{
+
+                            Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+
+                        }
+
+
+
+
+
+                    }
 
 
 
