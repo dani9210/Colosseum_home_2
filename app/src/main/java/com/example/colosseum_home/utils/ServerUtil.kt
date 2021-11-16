@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import com.example.colosseum_home.R
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -148,6 +149,32 @@ class ServerUtil {
 
 
             })
+
+
+
+        }
+
+
+//        중복확인기능
+
+        fun getRequestDuplCheck(type : String, value : String,  handler: JsonResponseHandler?){
+
+//            어디로 가야하는가?  GET-query 파라미터 => 어디로?  +어떤데이터?  한번에 조합된형태.
+//            => a만들떄도 같이 만들어야함
+//            => 어디로가는가? 본체 =>  파라미터 첨부까지. =>  url을 만들고 가공(build)
+//            뼈대를 만들고     urlBuilder에다가 기능을 써먹는다.
+
+            val urlBuilder= "${BASE_URL}/user_check".toHttpUrlOrNull()!!.newBuilder()
+
+//              addEncodedQueryParameter() < 한글처리가잘되어서 요고로쓴다
+
+            urlBuilder.addEncodedQueryParameter("type",type)
+            urlBuilder.addEncodedQueryParameter("value",value)
+
+            val urlString = urlBuilder.toString()
+
+            Log.d("최종주소",urlString)
+
 
 
 
