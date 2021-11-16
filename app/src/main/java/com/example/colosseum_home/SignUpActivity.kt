@@ -44,7 +44,7 @@ class SignUpActivity : BaseActivity() {
 
                         } else {
 
-                            binding.emailCheckResultTxt.text = "다른 이메일을 입력하고,검사해주세요"
+                            binding.emailCheckResultTxt.text = "사용중인 이메일 입니다"
 
 
                         }
