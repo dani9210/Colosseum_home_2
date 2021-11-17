@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivityLoginBinding
+import com.example.colosseum_home.utils.ContextUtil
 
 import com.example.colosseum_home.utils.ServerUtil
 import org.json.JSONObject
@@ -71,6 +72,8 @@ class LoginActivity : BaseActivity() {
                                 val token = dataObj.getString("token")
 
 //                                SharedPreferences 활용하여 저장해두자 . => 필요할떄 꺼내쓰도록.
+
+                                ContextUtil.setToken(mContext,token)
 
 
                                 runOnUiThread {
