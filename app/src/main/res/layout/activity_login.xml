@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:text="비밀번호"
             android:textSize="17sp"
             android:textColor="@color/pppink"
@@ -56,11 +56,18 @@
             android:inputType="textPassword"
             android:textColorHint="@color/pink" />
 
+        <CheckBox
+
+            android:id="@+id/autoLoginCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pppink"
+            android:text="자동 로그인"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
             <Button
