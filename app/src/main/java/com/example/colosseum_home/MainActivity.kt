@@ -60,10 +60,19 @@ class MainActivity : BaseActivity(){
 //                    TopicData() 형태로 변환해주자 => 목록에 추가해주자.
 
                     val topicData = TopicData()
+                    topicData.id = topicObj.getInt("id")
+                    topicData.title = topicObj.getString("title")
+                    topicData.imageURL = topicObj.getString("img_url")
+
+//                    만들어진 토픽 데이터를 목록에 추가해준다
+
+                    mTopicList.add(TopicData())
 
 
 
                 }
+
+//                for문이 끝나면, mTopiclist에 모든 토론 주제가 추가된상태다.
 
 
 
