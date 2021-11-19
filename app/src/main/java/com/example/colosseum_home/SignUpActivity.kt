@@ -1,6 +1,7 @@
 package com.example.colosseum_home
 
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -19,6 +20,8 @@ class SignUpActivity : BaseActivity() {
 //    이메일 중복검사 통과 여부 저장 변수.
 
     var isEmailOk = false  // 기본값 :  통과 X , 그래서 false. => 자료형 자동으로 Boolean 설정정
+    var isNicknameOk = false
+
 
     override  fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,66 @@ class SignUpActivity : BaseActivity() {
 
 
     override fun setupEvents() {
+
+        binding.nicknameEdt.addTextChangedListener {
+
+//            val inputContent = it.toString()
+//            Log.d("변경된내용",inputContent)
+
+//            이메일이 한글자라도 바뀌면 -> 검사를 다시 요구.
+
+            runOnUiThread {
+
+                binding.nicknameCheckResultTxt.text = "닉네임 중복검사를 해주세요"
+                isNicknameOk = false
+
+            }
+
+
+
+        }
+
+
+        binding.checkNicknameBtn.setOnClickListener {
+
+            val inputNickname = binding.nicknameEdt.text.toString()
+
+            ServerUtil.getRequestDuplCheck("NICK_NAME", inputNickname , object:ServerUtil.JsonResponseHandler{
+                override fun onResponse(jsonObj: JSONObject) {
+
+                    val code = jsonObj.getInt("code")
+
+                    runOnUiThread {
+
+                        if (code == 200){
+
+                            binding.nicknameCheckResultTxt.text = "사용해도 좋은 닉네임 입니다."
+                            isNicknameOk = true
+
+
+
+                        }
+
+                        else {
+
+                            binding.nicknameCheckResultTxt.text = "다른 닉네임으로 재검사해주세요.."
+                            isNicknameOk = false
+
+
+
+                        }
+
+
+                    }
+
+                }
+
+
+            })
+
+
+        }
+
 
         binding.emailEdt.addTextChangedListener {
 
@@ -134,7 +197,13 @@ class SignUpActivity : BaseActivity() {
 
             }
 
+//           입력값들이 괜찮은지 먼저 검사.  닉네임도 포함
+           if(!isNicknameOk){
 
+               Toast.makeText(mContext, "닉네임 검사를 다시 해주세요.", Toast.LENGTH_SHORT).show()
+               return@setOnClickListener
+
+           }
 
 
 //            입력한 데이터를 => 서버의 회원가입 기능에 요청  => ServerUtil 함수 활용. => 함수가 아직없으니 추가로 만들자
