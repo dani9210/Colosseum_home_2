@@ -27,29 +27,8 @@ class MainActivity : BaseActivity(){
     override fun setValues() {
 
 
-//        메인정보 받아오기 호출 =>  이메일파싱,텍스트뷰에 반영
-
-        ServerUtil.getRequestMainInfo(mContext,object : ServerUtil.JsonResponseHandler{
-            override fun onResponse(jsonObj: JSONObject) {
-
-                val dataObj = jsonObj.getJSONObject("data")
-                val userObj = dataObj.getJSONObject("user")
-                val email = userObj.getString("email")
 
 
-
-                runOnUiThread {
-
-                    binding.nicknameTxt.text = email
-
-
-                }
-
-
-            }
-
-
-        })
 
 
 
