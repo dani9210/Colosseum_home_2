@@ -4,6 +4,7 @@ package com.example.colosseum_home
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.databinding.ActivityMainBinding
+import com.example.colosseum_home.utils.ServerUtil
 
 class MainActivity : BaseActivity(){
 
@@ -25,6 +26,9 @@ class MainActivity : BaseActivity(){
     override fun setValues() {
 
 //        연습 - 내 정보를 받아오기 호출 =>  닉네임 파싱, 텍스트뷰에 반영영
+
+        ServerUtil.getRequestMyInfo(mContext,null)
+
 
     }
 
