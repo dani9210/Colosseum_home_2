@@ -71,7 +71,7 @@ class MainActivity : BaseActivity(){
 
 //                    만들어진 토픽 데이터를 목록에 추가해준다
 
-                    mTopicList.add(TopicData())
+                    mTopicList.add(topicData)
 
 
 
