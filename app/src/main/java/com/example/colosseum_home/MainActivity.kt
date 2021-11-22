@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.adapters.TopicAdapter
@@ -14,28 +15,39 @@ import com.example.colosseum_home.utils.ContextUtil
 import com.example.colosseum_home.utils.ServerUtil
 import org.json.JSONObject
 
-class MainActivity : BaseActivity(){
+class MainActivity : BaseActivity() {
 
-    lateinit var binding : ActivityMainBinding
-    lateinit var mTopicAdapter : TopicAdapter
+    lateinit var binding: ActivityMainBinding
+    lateinit var mTopicAdapter: TopicAdapter
 
     val mTopicList = ArrayList<TopicData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setupEvents()
         setValues()
     }
 
 
-
     override fun setupEvents() {
+
+
+
+        binding.topicListView.setOnItemClickListener { parent, view, position, id ->
+
+//            연습 클릭한 주제의 제목으로 토스트
+
+            val clikedTopic = mTopicList[position]
+
+            Toast.makeText(mContext, clikedTopic.title, Toast.LENGTH_SHORT).show()
+
+        }
 
         binding.logoutBtn.setOnClickListener {
 
 //            로그아웃 기능 구현 => 진짜 로그아웃?
-            
+
             val alert = AlertDialog.Builder(mContext)
             alert.setTitle("로그아웃")
             alert.setMessage("정말 로그아웃 하시겠습니까?")
@@ -43,16 +55,15 @@ class MainActivity : BaseActivity(){
 
 //              확인 눌리면 할 일 -> 로그아웃
 //                로그아웃 : 저장된 토큰값을 파기 (토큰 제거)
-                ContextUtil.setToken(mContext,"")
-                val myIntent = Intent(mContext,SplashActivity::class.java)
+                ContextUtil.setToken(mContext, "")
+                val myIntent = Intent(mContext, SplashActivity::class.java)
                 startActivity(myIntent)
                 finish()
 
             })
 
-            alert.setNegativeButton("취소",null)
+            alert.setNegativeButton("취소", null)
             alert.show()
-
 
 
         }
@@ -65,16 +76,15 @@ class MainActivity : BaseActivity(){
 //        서버 호출 =>  파싱해서, mTopicList를 채워주자.
         getTopicListFromServer()
 
-        mTopicAdapter = TopicAdapter(mContext,R.layout.topic_list_item,mTopicList)
+        mTopicAdapter = TopicAdapter(mContext, R.layout.topic_list_item, mTopicList)
         binding.topicListView.adapter = mTopicAdapter
 
     }
 
 
-
     fun getTopicListFromServer() {
 
-        ServerUtil.getRequestMainInfo(mContext,object : ServerUtil.JsonResponseHandler{
+        ServerUtil.getRequestMainInfo(mContext, object : ServerUtil.JsonResponseHandler {
             override fun onResponse(jsonObj: JSONObject) {
 
                 val dataObj = jsonObj.getJSONObject("data")
@@ -84,7 +94,7 @@ class MainActivity : BaseActivity(){
 //                5개주제  : 0~4번 주제까지. (5개)
 
 
-                for ( index in 0 until topicsArr.length()){
+                for (index in 0 until topicsArr.length()) {
 
 //                   [  ]  안에있는 {  }를 순서대로 찾아내서 파싱하자.
 
@@ -103,7 +113,6 @@ class MainActivity : BaseActivity(){
                     mTopicList.add(topicData)
 
 
-
                 }
 
 //                for문이 끝나면, mTopiclist에 모든 토론 주제가 추가된상태다.
@@ -114,11 +123,6 @@ class MainActivity : BaseActivity(){
                     mTopicAdapter.notifyDataSetChanged()
 
                 }
-
-
-
-
-
 
 
             }

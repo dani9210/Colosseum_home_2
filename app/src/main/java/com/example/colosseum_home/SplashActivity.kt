@@ -44,6 +44,9 @@ class SplashActivity : BaseActivity() {
 
                   myIntent = Intent(mContext,MainActivity::class.java)
 
+
+
+
         }
             else{
 

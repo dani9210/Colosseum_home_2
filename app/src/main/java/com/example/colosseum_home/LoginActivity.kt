@@ -33,7 +33,9 @@ class LoginActivity : BaseActivity() {
 //            ContextUtil에 변경된값 저장.
 //            Toast.makeText(mContext, isChecked.toString(), Toast.LENGTH_SHORT).show()
 
-            ContextUtil.setAutoLogin(mContext,isChecked)
+                ContextUtil.setAutoLogin(mContext,isChecked)
+
+
 
         }
         binding.singUpBtn.setOnClickListener {
@@ -64,8 +66,6 @@ class LoginActivity : BaseActivity() {
 //                    로그인 성공시 - > 성공
 //                   실패시 -> 왜 실패했는지 서버가 알려주는대로 토스트
 
-
-
 //                          안드로이드는 UI 전담 쓰레드 외의 다른 쓰레드가 UI를 조작하면, 위험요소로 간주하고 앱을 죽임.
 //                            그래서 꼭  runOnUiThread 안에 작업해주어야함
                             if (code == 200) {
@@ -81,10 +81,12 @@ class LoginActivity : BaseActivity() {
 
 //                                SharedPreferences 활용하여 저장해두자 . => 필요할떄 꺼내쓰도록.
 
-                                ContextUtil.setToken(mContext,token)
+                               ContextUtil.setToken(mContext,token)
 
 
                                 runOnUiThread {
+
+
 
                                     Toast.makeText(mContext, "${nickname}님 환영합니다!",Toast.LENGTH_SHORT).show()
 
