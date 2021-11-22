@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="250dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/pinkpink" />
+            android:src="@drawable/pink_pink" />
 
 
         <TextView
