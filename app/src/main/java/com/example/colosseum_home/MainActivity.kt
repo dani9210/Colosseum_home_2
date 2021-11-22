@@ -2,6 +2,7 @@ package com.example.colosseum_home
 
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -9,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.adapters.TopicAdapter
 import com.example.colosseum_home.databinding.ActivityMainBinding
 import com.example.colosseum_home.datas.TopicData
+import com.example.colosseum_home.utils.ContextUtil
 import com.example.colosseum_home.utils.ServerUtil
 import org.json.JSONObject
 
@@ -38,6 +40,13 @@ class MainActivity : BaseActivity(){
             alert.setTitle("로그아웃")
             alert.setMessage("정말 로그아웃 하시겠습니까?")
             alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+
+//              확인 눌리면 할 일 -> 로그아웃
+//                로그아웃 : 저장된 토큰값을 파기 (토큰 제거)
+                ContextUtil.setToken(mContext,"")
+                val myIntent = Intent(mContext,SplashActivity::class.java)
+                startActivity(myIntent)
+                finish()
 
             })
 
