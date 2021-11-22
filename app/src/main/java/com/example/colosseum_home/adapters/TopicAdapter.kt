@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.colosseum_home.R
 import com.example.colosseum_home.datas.TopicData
 
@@ -37,6 +38,7 @@ class TopicAdapter(
         val topicTitleTxt =row.findViewById<TextView>(R.id.topicTitleTxt)
 
         topicTitleTxt.text = topicData.title
+        Glide.with(mContext).load(topicData.imageURL).into(topicImg)
 
 
 
