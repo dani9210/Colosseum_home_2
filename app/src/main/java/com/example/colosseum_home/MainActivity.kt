@@ -1,8 +1,10 @@
 package com.example.colosseum_home
 
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.adapters.TopicAdapter
 import com.example.colosseum_home.databinding.ActivityMainBinding
@@ -27,6 +29,24 @@ class MainActivity : BaseActivity(){
 
 
     override fun setupEvents() {
+
+        binding.logoutBtn.setOnClickListener {
+
+//            로그아웃 기능 구현 => 진짜 로그아웃?
+            
+            val alert = AlertDialog.Builder(mContext)
+            alert.setTitle("로그아웃")
+            alert.setMessage("정말 로그아웃 하시겠습니까?")
+            alert.setPositiveButton("확인", DialogInterface.OnClickListener { dialog, which ->
+
+            })
+
+            alert.setNegativeButton("취소",null)
+            alert.show()
+
+
+
+        }
 
     }
 
