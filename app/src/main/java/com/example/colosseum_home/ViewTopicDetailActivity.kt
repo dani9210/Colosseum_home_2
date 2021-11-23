@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.colosseum_home.databinding.ActivityViewTopicDetailBinding
 import com.example.colosseum_home.datas.TopicData
+import com.example.colosseum_home.utils.ServerUtil
+import org.json.JSONObject
 
 class ViewTopicDetailActivity : BaseActivity() {
 
@@ -32,6 +34,21 @@ class ViewTopicDetailActivity : BaseActivity() {
         mTopicData = intent.getSerializableExtra("topic") as TopicData
         binding.topicTitleTxt.text = mTopicData.title
         Glide.with(mContext).load(mTopicData.imageURL).into(binding.topicImg)
+        getTopicDetailFromServer()
+
+    }
+
+
+    fun getTopicDetailFromServer ()  {
+
+        ServerUtil.getRequestTopicDetail(mContext,mTopicData.id,"NEW",object : ServerUtil.JsonResponseHandler{
+            override fun onResponse(jsonObj: JSONObject) {
+
+            }
+
+
+        })
+
 
     }
 
