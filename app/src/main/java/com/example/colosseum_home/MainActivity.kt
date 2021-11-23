@@ -4,8 +4,6 @@ package com.example.colosseum_home
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import com.example.colosseum_home.adapters.TopicAdapter
@@ -38,9 +36,15 @@ class MainActivity : BaseActivity() {
 
 //            연습 클릭한 주제의 제목으로 토스트
 
-            val clikedTopic = mTopicList[position]
+            val clickedTopic = mTopicList[position]
 
-            Toast.makeText(mContext, clikedTopic.title, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(mContext, clikedTopic.title, Toast.LENGTH_SHORT).show()
+
+//            실제 - 클릭한주제 상세보기  => 주제 데이터를 들고 이동.
+
+            val myIntent = Intent(mContext,ViewTopicDetailActivity::class.java)
+            myIntent.putExtra("topic",clickedTopic)
+            startActivity(myIntent)
 
         }
 
