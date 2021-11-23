@@ -10,6 +10,7 @@
         android:id="@+id/contentTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/pppink"
         android:text="댓글 내용 자리"/>
 
 </LinearLayout>

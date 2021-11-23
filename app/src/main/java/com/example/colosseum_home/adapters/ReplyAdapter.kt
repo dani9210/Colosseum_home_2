@@ -26,7 +26,7 @@ class ReplyAdapter(
 
         if(tempRow == null){
 
-            tempRow = mInflater.inflate(R.layout.activity_view_topic_detail,null)
+            tempRow = mInflater.inflate(R.layout.reply_list_item,null)
 
         }
 
@@ -34,6 +34,9 @@ class ReplyAdapter(
 
 
         val data = mList[position]
+
+        val contentTxt = row.findViewById<TextView>(R.id.contentTxt)
+        contentTxt.text = data.content
 
 
 

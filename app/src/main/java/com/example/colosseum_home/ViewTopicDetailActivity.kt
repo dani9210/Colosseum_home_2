@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.example.colosseum_home.adapters.ReplyAdapter
 import com.example.colosseum_home.databinding.ActivityViewTopicDetailBinding
 import com.example.colosseum_home.datas.ReplyData
 import com.example.colosseum_home.datas.TopicData
@@ -17,6 +18,8 @@ class ViewTopicDetailActivity : BaseActivity() {
     lateinit var mTopicData : TopicData
 
     val mReplyList = ArrayList<ReplyData>()
+
+    lateinit var mReplyAdapter: ReplyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,9 @@ class ViewTopicDetailActivity : BaseActivity() {
         Glide.with(mContext).load(mTopicData.imageURL).into(binding.topicImg)
         getTopicDetailFromServer()
 
+        mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item,mReplyList)
+        binding.replyListView.adapter = mReplyAdapter
+
     }
 
 
@@ -56,7 +62,7 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                     val replyObj = repliesArr.getJSONObject(i)
 
-//                    JSONObjec -> ReplyData 객체로 벼환.
+//                    JSONObject -> ReplyData 객체로 벼환.
 
                     val replyData = ReplyData()
                     replyData.id = replyObj.getInt("id")
@@ -69,6 +75,13 @@ class ViewTopicDetailActivity : BaseActivity() {
                 }
 
 //                리스트뷰의 목록에 변경  => 리스트뷰 어댑터 새로고침 처리
+
+                runOnUiThread {
+
+                    mReplyAdapter.notifyDataSetChanged()
+
+                }
+
 
 
 

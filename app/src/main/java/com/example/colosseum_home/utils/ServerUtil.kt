@@ -296,7 +296,7 @@ class ServerUtil {
         fun getRequestTopicDetail( context : Context, topicId : Int, orderType : String, handler: JsonResponseHandler?) {
 
 
-            val urlBuilder = "${BASE_URL}/topic/".toHttpUrlOrNull()!!.newBuilder()
+            val urlBuilder = "${BASE_URL}/topic".toHttpUrlOrNull()!!.newBuilder()
 
 //            path 첨부 : /topic/3 양식. => 이름표 작성 x
 
