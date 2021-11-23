@@ -44,6 +44,8 @@ class ViewTopicDetailActivity : BaseActivity() {
         ServerUtil.getRequestTopicDetail(mContext,mTopicData.id,"NEW",object : ServerUtil.JsonResponseHandler{
             override fun onResponse(jsonObj: JSONObject) {
 
+
+
             }
 
 
