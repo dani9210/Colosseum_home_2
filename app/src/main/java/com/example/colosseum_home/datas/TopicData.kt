@@ -11,4 +11,12 @@ class TopicData  (
 //    다른 형태의 생성자 (보조생성자) 도 추가지원.
 
     constructor() :  this ( 0 ,"제목없음","주소없음" )
+
+    companion object{
+
+//        매번 파싱하는 코드는 화면마다 짜기 번거로움
+//        TopicData의 기능으로 ->  토론에대한 내용을 갖고잇는 jsonObj를 넣으면
+//           =>파싱을 진행해서 ->TopicData
+
+    }
 }
