@@ -38,7 +38,7 @@ class TopicAdapter(
         val topicTitleTxt =row.findViewById<TextView>(R.id.topicTitleTxt)
 
         topicTitleTxt.text = topicData.title
-        Glide.with(mContext).load(topicData.imageURL).into(topicImg)
+        Glide.with(mContext).load(topicData.iamageURL).into(topicImg)
 
 
 
