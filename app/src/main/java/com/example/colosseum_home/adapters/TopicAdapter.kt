@@ -37,8 +37,13 @@ class TopicAdapter(
         val topicImg =row.findViewById<ImageView>(R.id.topicImage)
         val topicTitleTxt =row.findViewById<TextView>(R.id.topicTitleTxt)
 
+        val replyCount = row.findViewById<TextView>(R.id.replyCountTxt)
+
+
+
         topicTitleTxt.text = topicData.title
-        Glide.with(mContext).load(topicData.iamageURL).into(topicImg)
+        Glide.with(mContext).load(topicData.imageURL).into(topicImg)
+        replyCount.text = "현재 의견 : ${topicData.replyCount}개"
 
 
 

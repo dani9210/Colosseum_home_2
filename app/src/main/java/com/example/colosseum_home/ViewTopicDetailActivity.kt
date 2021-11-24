@@ -35,10 +35,12 @@ class ViewTopicDetailActivity : BaseActivity() {
 
     override fun setValues() {
 
+
         mTopicData = intent.getSerializableExtra("topic") as TopicData
         binding.topicTitleTxt.text = mTopicData.title
-        Glide.with(mContext).load(mTopicData.iamageURL).into(binding.topicImg)
+        Glide.with(mContext).load(mTopicData.imageURL).into(binding.topicImg)
         getTopicDetailFromServer()
+        binding.replyCountTxt.text = "현재 의견 : ${mTopicData.replyCount}개"
 
         mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item,mReplyList)
         binding.replyListView.adapter = mReplyAdapter
